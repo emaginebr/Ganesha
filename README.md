@@ -1,4 +1,4 @@
-# Ganesha - Financial Module Backend
+# ProxyPay - Financial Module Backend
 
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)
 ![EF Core](https://img.shields.io/badge/EF%20Core-9.0-512BD4)
@@ -8,9 +8,9 @@
 
 ## Overview
 
-**Ganesha** is a multi-tenant financial module backend built with **.NET 8** following **Clean Architecture** principles. It provides a **GraphQL API** (via HotChocolate) for read operations and **REST API** for write operations, managing stores and invoices. Supports payment processing via Stripe, file storage with AWS S3, and delegated authentication through NAuth.
+**ProxyPay** is a multi-tenant financial module backend built with **.NET 8** following **Clean Architecture** principles. It provides a **GraphQL API** (via HotChocolate) for read operations and **REST API** for write operations, managing stores and invoices. Supports payment processing via Stripe, file storage with AWS S3, and delegated authentication through NAuth.
 
-The solution is organized into 8 layered projects with clear dependency boundaries, including a dedicated **Ganesha.GraphQL** project for all GraphQL schemas, queries, and type extensions.
+The solution is organized into 8 layered projects with clear dependency boundaries, including a dedicated **ProxyPay.GraphQL** project for all GraphQL schemas, queries, and type extensions.
 
 ---
 
@@ -75,41 +75,41 @@ The solution is organized into 8 layered projects with clear dependency boundari
 ## 📁 Project Structure
 
 ```
-Ganesha/
-├── Ganesha.API/                    # Web API entry point
+ProxyPay/
+├── ProxyPay.API/                    # Web API entry point
 │   ├── Controllers/             # REST controllers (Store, Invoice)
 │   ├── Middlewares/             # TenantMiddleware
 │   ├── Startup.cs               # DI, auth, CORS, Swagger, GraphQL endpoints
 │   └── Dockerfile               # Multi-stage Docker build
-├── Ganesha.GraphQL/                # GraphQL schemas and resolvers
+├── ProxyPay.GraphQL/                # GraphQL schemas and resolvers
 │   ├── Public/                  # Public queries (stores, storeBySlug)
 │   ├── Admin/                   # Authenticated queries (myStores, myInvoices)
 │   ├── Types/                   # Type extensions (logoUrl, invoice items)
 │   ├── GraphQLServiceExtensions.cs  # Schema registration
 │   └── GraphQLErrorLogger.cs    # Error diagnostics
-├── Ganesha.Application/            # DI bootstrap (ConfigureGanesha)
-├── Ganesha.Domain/                 # Business logic layer
+├── ProxyPay.Application/            # DI bootstrap (ConfigureProxyPay)
+├── ProxyPay.Domain/                 # Business logic layer
 │   ├── Interfaces/              # Service contracts
 │   ├── Models/                  # Domain models (Store, Invoice, InvoiceItem)
 │   ├── Services/                # Service implementations
 │   └── Mappers/                 # Model ↔ DTO mappers
-├── Ganesha/                        # Shared package (DTOs + ACL)
+├── ProxyPay/                        # Shared package (DTOs + ACL)
 │   ├── ACL/                     # Anti-Corruption Layer (external API clients)
 │   └── DTO/                     # Data Transfer Objects (Store, Invoice)
-├── Ganesha.Infra.Interfaces/      # Repository interfaces (IUnitOfWork, IRepository)
-├── Ganesha.Infra/                  # Infrastructure implementation
+├── ProxyPay.Infra.Interfaces/      # Repository interfaces (IUnitOfWork, IRepository)
+├── ProxyPay.Infra/                  # Infrastructure implementation
 │   ├── Context/                 # EF Core DbContext + entities
 │   └── Repository/              # Repository implementations
-├── Ganesha.Tests/                  # Unit tests (xUnit + Moq)
+├── ProxyPay.Tests/                  # Unit tests (xUnit + Moq)
 ├── bruno-collection/            # Bruno API testing collection
 ├── scripts/                     # Seed scripts
 ├── docs/                        # Documentation
 ├── docker-compose.yml           # Development (API + PostgreSQL)
 ├── docker-compose-prod.yml      # Production
-├── ganesha.sql                  # Database creation script
+├── proxypay.sql                  # Database creation script
 ├── .github/workflows/           # CI/CD (versioning, NuGet, releases, deploy)
 ├── GitVersion.yml               # Semantic versioning config
-├── Ganesha.sln                  # Solution file
+├── ProxyPay.sln                  # Solution file
 └── README.md                    # This file
 ```
 
@@ -117,18 +117,18 @@ Ganesha/
 
 ## 🏗️ System Design
 
-The following diagram illustrates the high-level architecture of **Ganesha**:
+The following diagram illustrates the high-level architecture of **ProxyPay**:
 
 ![System Design](docs/system-design.png)
 
 **Dependency flow:** `API / GraphQL → Application → Domain → Infra → PostgreSQL`
 
-- **Ganesha.API** receives REST requests and delegates to Domain services
-- **Ganesha.GraphQL** handles GraphQL queries directly against EF Core DbContext with type extensions for computed fields
-- **Ganesha.Application** bootstraps all DI registrations via `ConfigureGanesha()` and manages multi-tenant context
-- **Ganesha.Domain** contains business rules, service implementations, and domain models
-- **Ganesha (Shared)** provides DTOs and ACL clients for external consumers
-- **Ganesha.Infra** implements repositories using EF Core 9 with PostgreSQL
+- **ProxyPay.API** receives REST requests and delegates to Domain services
+- **ProxyPay.GraphQL** handles GraphQL queries directly against EF Core DbContext with type extensions for computed fields
+- **ProxyPay.Application** bootstraps all DI registrations via `ConfigureProxyPay()` and manages multi-tenant context
+- **ProxyPay.Domain** contains business rules, service implementations, and domain models
+- **ProxyPay (Shared)** provides DTOs and ACL clients for external consumers
+- **ProxyPay.Infra** implements repositories using EF Core 9 with PostgreSQL
 
 > 📄 **Source:** The editable Mermaid source is available at [`docs/system-design.mmd`](docs/system-design.mmd).
 
@@ -158,18 +158,18 @@ cp .env.example .env
 # Database
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=your_password_here
-POSTGRES_DB=ganesha
+POSTGRES_DB=proxypay
 
 # Tenant: emagine
-EMAGINE_CONNECTION_STRING=Host=db;Port=5432;Database=ganesha;Username=postgres;Password=your_password_here
+EMAGINE_CONNECTION_STRING=Host=db;Port=5432;Database=proxypay;Username=postgres;Password=your_password_here
 EMAGINE_JWT_SECRET=dev-jwt-secret-min-32-chars-long-here
 
 # Tenant: monexup
-MONEXUP_CONNECTION_STRING=Host=db;Port=5432;Database=ganesha;Username=postgres;Password=your_password_here
+MONEXUP_CONNECTION_STRING=Host=db;Port=5432;Database=proxypay;Username=postgres;Password=your_password_here
 MONEXUP_JWT_SECRET=dev-jwt-secret-min-32-chars-long-here
 
-# Ganesha
-GANESHA_BUCKET_NAME=ganesha
+# ProxyPay
+PROXYPAY_BUCKET_NAME=proxypay
 
 # NAuth
 NAUTH_API_URL=https://your-nauth-url/auth-api
@@ -207,8 +207,8 @@ docker-compose up -d --build
 ```
 
 This starts:
-- **ganesha-api** - .NET 8 API on port 5000 (configurable via `APP_PORT`)
-- **ganesha-db** - PostgreSQL 17 on port 5432
+- **proxypay-api** - .NET 8 API on port 5000 (configurable via `APP_PORT`)
+- **proxypay-db** - PostgreSQL 17 on port 5432
 
 #### 3. Verify Deployment
 
@@ -258,27 +258,27 @@ docker-compose -f docker-compose-prod.yml up -d --build
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/emaginebr/Ganesha.git
-cd Ganesha
+git clone https://github.com/emaginebr/ProxyPay.git
+cd ProxyPay
 ```
 
 #### 2. Create the database
 
 ```bash
-psql -U postgres -c "CREATE DATABASE ganesha;"
-psql -U postgres -d ganesha -f ganesha.sql
+psql -U postgres -c "CREATE DATABASE proxypay;"
+psql -U postgres -d proxypay -f proxypay.sql
 ```
 
 #### 3. Build the solution
 
 ```bash
-dotnet build Ganesha.sln
+dotnet build ProxyPay.sln
 ```
 
 #### 4. Run the API
 
 ```bash
-dotnet run --project Ganesha.API
+dotnet run --project ProxyPay.API
 ```
 
 The API will be available at `https://localhost:44374`.
@@ -291,18 +291,18 @@ The API will be available at `https://localhost:44374`.
 
 **All Tests:**
 ```bash
-dotnet test Ganesha.sln
+dotnet test ProxyPay.sln
 ```
 
 **With Coverage:**
 ```bash
-dotnet test Ganesha.sln --collect:"XPlat Code Coverage"
+dotnet test ProxyPay.sln --collect:"XPlat Code Coverage"
 ```
 
 ### Test Structure
 
 ```
-Ganesha.Tests/
+ProxyPay.Tests/
 ├── Domain/
 │   ├── Mappers/         # DTO ↔ Model mapping tests
 │   │   └── StoreMapperTest.cs
@@ -387,19 +387,19 @@ Ganesha.Tests/
 ### Schema Creation
 
 ```bash
-psql -U postgres -d ganesha -f ganesha.sql
+psql -U postgres -d proxypay -f proxypay.sql
 ```
 
 ### Backup
 
 ```bash
-pg_dump -U postgres ganesha > backup_ganesha_$(date +%Y%m%d).sql
+pg_dump -U postgres proxypay > backup_proxypay_$(date +%Y%m%d).sql
 ```
 
 ### Restore
 
 ```bash
-psql -U postgres -d ganesha < backup_ganesha_20260322.sql
+psql -U postgres -d proxypay < backup_proxypay_20260322.sql
 ```
 
 ---
@@ -412,7 +412,7 @@ psql -U postgres -d ganesha < backup_ganesha_20260322.sql
 |----------|---------|-------------|
 | **Version & Tag** | Push to `main` | Creates semantic version tags using GitVersion |
 | **Create Release** | After version tag | Creates GitHub releases for minor/major versions |
-| **Publish NuGet** | After version tag | Builds and publishes the Ganesha NuGet package |
+| **Publish NuGet** | After version tag | Builds and publishes the ProxyPay NuGet package |
 | **Deploy Prod** | Manual dispatch | Deploys to production via SSH |
 
 **Versioning strategy** (GitVersion - ContinuousDelivery):
@@ -431,7 +431,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
 3. Make your changes
-4. Run tests (`dotnet test Ganesha.sln`)
+4. Run tests (`dotnet test ProxyPay.sln`)
 5. Commit your changes using conventional commits (`git commit -m 'feat: add some AmazingFeature'`)
 6. Push to the branch (`git push origin feature/AmazingFeature`)
 7. Open a Pull Request
@@ -471,8 +471,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/emaginebr/Ganesha/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/emaginebr/Ganesha/discussions)
+- **Issues**: [GitHub Issues](https://github.com/emaginebr/ProxyPay/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/emaginebr/ProxyPay/discussions)
 
 ---
 

@@ -1,45 +1,45 @@
-%% Diagram: Ganesha System Architecture
+%% Diagram: ProxyPay System Architecture
 %% Type: Flowchart
 %% Updated: 2026-03-22
 
 flowchart TD
     client([Client / Browser])
 
-    subgraph api["Ganesha.API"]
+    subgraph api["ProxyPay.API"]
         controllers["Controllers\n(Store, Invoice)"]
         swagger["Swagger / OpenAPI"]
         startup_api["Startup\n(Auth, CORS, Tenant)"]
     end
 
-    subgraph graphql["Ganesha.GraphQL"]
+    subgraph graphql["ProxyPay.GraphQL"]
         public_gql["Public Schema\n(/graphql)\nstores, storeBySlug"]
         admin_gql["Admin Schema\n(/graphql/admin)\nmyStores, myInvoices"]
         type_ext["Type Extensions\n(logoUrl, invoice items)"]
     end
 
-    subgraph app["Ganesha.Application"]
-        di["DI Bootstrap\n(ConfigureGanesha)"]
+    subgraph app["ProxyPay.Application"]
+        di["DI Bootstrap\n(ConfigureProxyPay)"]
         tenant["TenantResolver\n(Multi-Tenant)"]
     end
 
-    subgraph domain["Ganesha.Domain"]
+    subgraph domain["ProxyPay.Domain"]
         services["Services\n(Store, Invoice)"]
         models["Models\n(Store, Invoice, InvoiceItem)"]
         core["Core\n(LogCore, Utils)"]
     end
 
-    subgraph nuget["Ganesha (Shared Package)"]
+    subgraph nuget["ProxyPay (Shared Package)"]
         dto["DTO\n(Store, Invoice,\nSettings, Enums)"]
         acl["ACL\n(StoreClient)"]
     end
 
-    subgraph infra_ifaces["Ganesha.Infra.Interfaces"]
+    subgraph infra_ifaces["ProxyPay.Infra.Interfaces"]
         repo_ifaces["Repository Interfaces\n(IStoreRepository,\nIInvoiceRepository,\nIInvoiceItemRepository)"]
         uow_iface["IUnitOfWork"]
     end
 
-    subgraph infra["Ganesha.Infra"]
-        context["GaneshaContext\n(EF Core 9)"]
+    subgraph infra["ProxyPay.Infra"]
+        context["ProxyPayContext\n(EF Core 9)"]
         repos["Repositories\n(Store, Invoice, InvoiceItem)"]
         uow["UnitOfWork"]
     end

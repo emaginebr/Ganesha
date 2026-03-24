@@ -12,8 +12,8 @@ on:
 env:
   DOTNET_VERSION: '8.0.x'
   CONFIGURATION: Release
-  PROJECT_PATH: Ganesha/Ganesha.csproj
-  PACKAGE_NAME: Ganesha
+  PROJECT_PATH: ProxyPay/ProxyPay.csproj
+  PACKAGE_NAME: ProxyPay
 
 jobs:
   publish-nuget:

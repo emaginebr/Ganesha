@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Ganesha is a full-stack sales/e-commerce platform with a .NET 8 backend API and a React 18 TypeScript frontend. It supports multi-tenant networks with sellers, products, orders, and invoices.
+ProxyPay is a full-stack sales/e-commerce platform with a .NET 8 backend API and a React 18 TypeScript frontend. It supports multi-tenant networks with sellers, products, orders, and invoices.
 
 ## Commands
 
@@ -17,9 +17,9 @@ npm test           # Jest tests in watch mode
 
 ### Backend (.NET 8 - from repo root)
 ```bash
-dotnet build Ganesha.sln                          # Build entire solution
-dotnet run --project Ganesha.API                  # Run API (https://localhost:44374)
-dotnet run --project Ganesha.BackgroundService    # Run background jobs
+dotnet build ProxyPay.sln                          # Build entire solution
+dotnet run --project ProxyPay.API                  # Run API (https://localhost:44374)
+dotnet run --project ProxyPay.BackgroundService    # Run background jobs
 ```
 
 ### Docker
@@ -32,30 +32,30 @@ docker-compose up        # Starts nginx-proxy (8081) + API services
 ### Backend - Clean Architecture (.NET 8)
 
 ```
-Ganesha.API              → Controllers, Startup/DI config, auth middleware
-Ganesha.GraphQL          → HotChocolate GraphQL schemas, queries, type extensions
-Ganesha.Application      → DI bootstrap (Startup.cs), wires up services via ConfigureGanesha()
-Ganesha.Domain           → Business logic: Models/, Services/, Core/, Interfaces/
-Ganesha.DTO              → Data transfer objects shared across layers
-Ganesha.BackgroundService → Scheduled background jobs
-Ganesha.ACL              → Anti-corruption layer (external API adapters)
-Ganesha.Infra.Interfaces → Infrastructure abstractions (IUnitOfWork, Repository interfaces)
-Ganesha.Infra            → EF Core 9 DbContext (GaneshaContext), repositories, Unit of Work
+ProxyPay.API              → Controllers, Startup/DI config, auth middleware
+ProxyPay.GraphQL          → HotChocolate GraphQL schemas, queries, type extensions
+ProxyPay.Application      → DI bootstrap (Startup.cs), wires up services via ConfigureProxyPay()
+ProxyPay.Domain           → Business logic: Models/, Services/, Core/, Interfaces/
+ProxyPay.DTO              → Data transfer objects shared across layers
+ProxyPay.BackgroundService → Scheduled background jobs
+ProxyPay.ACL              → Anti-corruption layer (external API adapters)
+ProxyPay.Infra.Interfaces → Infrastructure abstractions (IUnitOfWork, Repository interfaces)
+ProxyPay.Infra            → EF Core 9 DbContext (ProxyPayContext), repositories, Unit of Work
 Lib/                    → External DLLs: NAuth.ACL, NAuth.DTO, NTools.ACL, NTools.DTO
 ```
 
-**Dependency flow:** API → GraphQL / Application → Domain → Ganesha.Infra → PostgreSQL (Npgsql)
+**Dependency flow:** API → GraphQL / Application → Domain → ProxyPay.Infra → PostgreSQL (Npgsql)
 
 **Key patterns:**
-- Repository + Unit of Work (Ganesha.Infra)
+- Repository + Unit of Work (ProxyPay.Infra)
 - EF Core with lazy loading proxies
 - Custom `RemoteAuthHandler` for Bearer token auth (delegates to NAuth)
-- DI registration centralized in `Ganesha.Application/Startup.cs` via `ConfigureGanesha()` extension method
+- DI registration centralized in `ProxyPay.Application/Startup.cs` via `ConfigureProxyPay()` extension method
 
-### GraphQL - HotChocolate (Ganesha.GraphQL)
+### GraphQL - HotChocolate (ProxyPay.GraphQL)
 
 ```
-GraphQLServiceExtensions.cs → DI registration (AddGaneshaGraphQL), configures both schemas
+GraphQLServiceExtensions.cs → DI registration (AddProxyPayGraphQL), configures both schemas
 GraphQLErrorLogger.cs       → Diagnostic event listener for logging GraphQL errors
 Public/PublicQuery.cs       → Public queries (stores, products, categories, featuredProducts)
 Public/PublicStoreType.cs   → ObjectType<Store> hiding internal fields (OwnerId, StoreUsers, Orders)

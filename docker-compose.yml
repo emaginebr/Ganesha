@@ -2,8 +2,8 @@ services:
   api:
     build:
       context: .
-      dockerfile: Ganesha.API/Dockerfile
-    container_name: ganesha-api
+      dockerfile: ProxyPay.API/Dockerfile
+    container_name: proxypay-api
     ports:
       - "${APP_PORT:-5000}:80"
     environment:
@@ -11,10 +11,10 @@ services:
       ASPNETCORE_URLS: http://+:80
       Tenants__emagine__ConnectionString: ${EMAGINE_CONNECTION_STRING}
       Tenants__emagine__JwtSecret: ${EMAGINE_JWT_SECRET}
-      Tenants__emagine__BucketName: ${GANESHA_BUCKET_NAME}
+      Tenants__emagine__BucketName: ${PROXYPAY_BUCKET_NAME}
       Tenants__monexup__ConnectionString: ${MONEXUP_CONNECTION_STRING}
       Tenants__monexup__JwtSecret: ${MONEXUP_JWT_SECRET}
-      Tenants__monexup__BucketName: ${GANESHA_BUCKET_NAME}
+      Tenants__monexup__BucketName: ${PROXYPAY_BUCKET_NAME}
       NAuth__ApiURL: ${NAUTH_API_URL}
       NAuth__BucketName: ${NAUTH_BUCKET_NAME}
       NAuth__JwtSecret: ${EMAGINE_JWT_SECRET}
@@ -27,7 +27,7 @@ services:
 
   db:
     image: postgres:17-alpine
-    container_name: ganesha-db
+    container_name: proxypay-db
     ports:
       - "5432:5432"
     environment:

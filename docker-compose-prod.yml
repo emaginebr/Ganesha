@@ -2,8 +2,8 @@ services:
   api:
     build:
       context: .
-      dockerfile: Ganesha.API/Dockerfile
-    container_name: ganesha-api
+      dockerfile: ProxyPay.API/Dockerfile
+    container_name: proxypay-api
     restart: unless-stopped
     expose:
       - "80"

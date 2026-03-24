@@ -16,7 +16,7 @@ jobs:
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
           script: |
             set -e
-            DEPLOY_DIR="/opt/ganesha"
+            DEPLOY_DIR="/opt/proxypay"
             REPO_URL="https://github.com/${{ github.repository }}.git"
             BRANCH="main"
 
@@ -46,7 +46,7 @@ jobs:
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
           script: |
             set -e
-            DEPLOY_DIR="/opt/ganesha"
+            DEPLOY_DIR="/opt/proxypay"
             cd "$DEPLOY_DIR"
 
             cat > .env.prod <<'ENVEOF'
@@ -88,7 +88,7 @@ jobs:
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
           script: |
             set -e
-            DEPLOY_DIR="/opt/ganesha"
+            DEPLOY_DIR="/opt/proxypay"
             cd "$DEPLOY_DIR"
 
             docker compose --env-file .env.prod -f docker-compose-prod.yml down || true
@@ -107,7 +107,7 @@ jobs:
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
           script: |
             set -e
-            DEPLOY_DIR="/opt/ganesha"
+            DEPLOY_DIR="/opt/proxypay"
             cd "$DEPLOY_DIR"
 
             docker compose --env-file .env.prod -f docker-compose-prod.yml up --build -d

@@ -24,7 +24,7 @@
     <ProjectReference Include="..\ProxyPay.Infra\ProxyPay.Infra.csproj" />
     <ProjectReference Include="..\ProxyPay.Application\ProxyPay.Application.csproj" />
     <ProjectReference Include="..\ProxyPay.API\ProxyPay.API.csproj" />
-    <ProjectReference Include="..\ProxyPay\ProxyPay.csproj" />
+    <ProjectReference Include="..\ProxyPay.DTO\ProxyPay.DTO.csproj" />
   </ItemGroup>
 
 </Project>

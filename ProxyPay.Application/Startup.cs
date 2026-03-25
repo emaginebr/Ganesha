@@ -9,16 +9,10 @@ using ProxyPay.Domain.Models;
 using ProxyPay.Domain.Services;
 using ProxyPay.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ProxyPay.ACL;
-using ProxyPay.ACL.Handlers;
-using ProxyPay.ACL.Interfaces;
 using ProxyPay.Domain;
 using ProxyPay.Infra.Interfaces.AppServices;
 using ProxyPay.Infra.AppServices;
-using Microsoft.Extensions.Configuration;
 using NAuth.ACL;
 using NAuth.ACL.Interfaces;
 using zTools.ACL.Interfaces;
@@ -45,7 +39,6 @@ namespace ProxyPay.Application
             services.AddScoped<ITenantResolver, TenantResolver>();
             services.AddScoped<TenantDbContextFactory>();
             services.AddScoped(sp => sp.GetRequiredService<TenantDbContextFactory>().CreateDbContext());
-            services.AddTransient<TenantHeaderHandler>();
             #endregion
 
             #region AutoMapper
@@ -75,8 +68,6 @@ namespace ProxyPay.Application
             injectDependency(typeof(IFileClient), typeof(FileClient), services, scoped);
             injectDependency(typeof(IStringClient), typeof(StringClient), services, scoped);
             injectDependency(typeof(IDocumentClient), typeof(DocumentClient), services, scoped);
-            injectDependency(typeof(IInvoiceClient), typeof(InvoiceClient), services, scoped);
-            injectDependency(typeof(ITransactionClient), typeof(TransactionClient), services, scoped);
             #endregion
 
             #region AppService

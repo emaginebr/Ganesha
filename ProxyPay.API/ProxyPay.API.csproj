@@ -34,7 +34,7 @@
     <ProjectReference Include="..\ProxyPay.Infra.Interfaces\ProxyPay.Infra.Interfaces.csproj" />
     <ProjectReference Include="..\ProxyPay.Application\ProxyPay.Application.csproj" />
     <ProjectReference Include="..\ProxyPay.Domain\ProxyPay.Domain.csproj" />
-    <ProjectReference Include="..\ProxyPay\ProxyPay.csproj" />
+    <ProjectReference Include="..\ProxyPay.DTO\ProxyPay.DTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

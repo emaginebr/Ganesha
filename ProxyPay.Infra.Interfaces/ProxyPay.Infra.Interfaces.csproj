@@ -15,6 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProxyPay\ProxyPay.csproj" />
+    <ProjectReference Include="..\ProxyPay.DTO\ProxyPay.DTO.csproj" />
   </ItemGroup>
 </Project>

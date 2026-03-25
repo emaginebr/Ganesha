@@ -17,8 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{4CA0FD
 		docker-compose-acr.yml = docker-compose-acr.yml
 		docker-compose.yml = docker-compose.yml
 		Dockerfile-nginx = Dockerfile-nginx
-		README.md = README.md
-		sql_server_compose.yml = sql_server_compose.yml
+	sql_server_compose.yml = sql_server_compose.yml
 		ssl.crt = ssl.crt
 		ssl.key = ssl.key
 	EndProjectSection
@@ -27,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyPay.API", "ProxyPay.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProxyPay.Application", "ProxyPay.Application\ProxyPay.Application.csproj", "{5DE107B9-14A2-4A93-ACF8-E6F6BE632AC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyPay", "ProxyPay\ProxyPay.csproj", "{C8EC016F-381A-49D6-827A-9E4F0DB102B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyPay.DTO", "ProxyPay.DTO\ProxyPay.DTO.csproj", "{C8EC016F-381A-49D6-827A-9E4F0DB102B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProxyPay.Tests", "ProxyPay.Tests\ProxyPay.Tests.csproj", "{7ACE4DBD-407D-4251-8689-957C693917EC}"
 EndProject

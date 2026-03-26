@@ -10,6 +10,7 @@ namespace ProxyPay.Domain.Interfaces
         Task<InvoiceInfo> GetInvoiceInfoAsync(InvoiceModel model);
         Task<InvoiceModel> InsertAsync(InvoiceInsertInfo invoice, long storeId);
         Task<InvoiceModel> InsertAsync(InvoiceInsertInfo invoice, long storeId, long customerId);
+        Task<QRCodeResponse> CreateQRCodeAsync(InvoiceInsertInfo invoice, long storeId, long customerId);
         Task<InvoiceModel> UpdateAsync(InvoiceUpdateInfo invoice);
         Task DeleteAsync(long invoiceId);
     }

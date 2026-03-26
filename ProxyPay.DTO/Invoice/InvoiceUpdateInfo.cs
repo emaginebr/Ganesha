@@ -12,6 +12,8 @@ namespace ProxyPay.DTO.Invoice
         public string Notes { get; set; }
         [JsonPropertyName("status")]
         public InvoiceStatusEnum Status { get; set; }
+        [JsonPropertyName("paymentMethod")]
+        public PaymentMethodEnum PaymentMethod { get; set; }
         [JsonPropertyName("discount")]
         public double Discount { get; set; }
         [JsonPropertyName("dueDate")]

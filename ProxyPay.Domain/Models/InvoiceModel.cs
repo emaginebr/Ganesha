@@ -1,3 +1,4 @@
+using ProxyPay.DTO;
 using ProxyPay.DTO.Invoice;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,11 @@ namespace ProxyPay.Domain.Models
         public string InvoiceNumber { get; set; }
         public string Notes { get; set; }
         public InvoiceStatusEnum Status { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
         public double Discount { get; set; }
         public DateTime DueDate { get; set; }
+        public string ExternalCode { get; set; }
+        public DateTime? ExpiresAt { get; set; }
         public DateTime? PaidAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

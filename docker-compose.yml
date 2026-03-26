@@ -19,6 +19,7 @@ services:
       NAuth__BucketName: ${NAUTH_BUCKET_NAME}
       NAuth__JwtSecret: ${EMAGINE_JWT_SECRET}
       zTools__ApiURL: ${ZTOOLS_API_URL}
+      AbacatePay__ApiKey: ${ABACATEPAY_API_KEY}
     depends_on:
       db:
         condition: service_healthy

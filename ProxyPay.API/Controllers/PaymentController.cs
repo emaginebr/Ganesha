@@ -68,5 +68,29 @@ namespace ProxyPay.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("qrcode")]
+        public async Task<ActionResult<QRCodeResponse>> CreateQRCode([FromBody] InvoiceInsertInfo invoice)
+        {
+            try
+            {
+                var store = await _storeService.GetByClientIdAsync(invoice.ClientId);
+
+                if (invoice.Customer == null)
+                    return BadRequest("Customer is required");
+
+                if (string.IsNullOrWhiteSpace(invoice.Customer.Email))
+                    return BadRequest("Customer email is required");
+
+                var customerId = await _customerService.UpsertAsync(invoice.Customer, store.StoreId);
+
+                var result = await _invoiceService.CreateQRCodeAsync(invoice, store.StoreId, customerId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

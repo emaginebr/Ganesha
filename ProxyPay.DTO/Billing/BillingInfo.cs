@@ -15,6 +15,8 @@ namespace ProxyPay.DTO.Billing
         public long? CustomerId { get; set; }
         [JsonPropertyName("frequency")]
         public BillingFrequencyEnum Frequency { get; set; }
+        [JsonPropertyName("paymentMethod")]
+        public PaymentMethodEnum PaymentMethod { get; set; }
         [JsonPropertyName("billingStartDate")]
         public DateTime BillingStartDate { get; set; }
         [JsonPropertyName("status")]

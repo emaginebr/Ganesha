@@ -14,10 +14,16 @@ namespace ProxyPay.DTO.Invoice
         public string Notes { get; set; }
         [JsonPropertyName("status")]
         public InvoiceStatusEnum Status { get; set; }
+        [JsonPropertyName("paymentMethod")]
+        public PaymentMethodEnum PaymentMethod { get; set; }
         [JsonPropertyName("discount")]
         public double Discount { get; set; }
         [JsonPropertyName("dueDate")]
         public DateTime DueDate { get; set; }
+        [JsonPropertyName("externalCode")]
+        public string ExternalCode { get; set; }
+        [JsonPropertyName("expiresAt")]
+        public DateTime? ExpiresAt { get; set; }
         [JsonPropertyName("paidAt")]
         public DateTime? PaidAt { get; set; }
         [JsonPropertyName("createdAt")]

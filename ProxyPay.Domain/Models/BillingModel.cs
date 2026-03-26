@@ -1,3 +1,4 @@
+using ProxyPay.DTO;
 using ProxyPay.DTO.Billing;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ProxyPay.Domain.Models
         public long? StoreId { get; set; }
         public long? CustomerId { get; set; }
         public BillingFrequencyEnum Frequency { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
         public DateTime BillingStartDate { get; set; }
         public BillingStatusEnum Status { get; set; }
         public DateTime CreatedAt { get; set; }

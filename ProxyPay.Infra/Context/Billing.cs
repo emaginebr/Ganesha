@@ -13,6 +13,8 @@ public partial class Billing
 
     public int Frequency { get; set; }
 
+    public int PaymentMethod { get; set; }
+
     public DateTime BillingStartDate { get; set; }
 
     public int Status { get; set; }

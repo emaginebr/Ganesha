@@ -17,9 +17,15 @@ public partial class Invoice
 
     public int Status { get; set; }
 
+    public int PaymentMethod { get; set; }
+
     public double Discount { get; set; }
 
     public DateTime DueDate { get; set; }
+
+    public string ExternalCode { get; set; }
+
+    public DateTime? ExpiresAt { get; set; }
 
     public DateTime? PaidAt { get; set; }
 

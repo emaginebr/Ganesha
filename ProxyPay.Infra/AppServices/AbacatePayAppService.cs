@@ -13,7 +13,6 @@ namespace ProxyPay.Infra.AppServices
 {
     public class AbacatePayAppService : IAbacatePayAppService
     {
-        private readonly HttpClient _httpClient;
         private readonly AbacatePaySetting _settings;
 
         private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
@@ -25,21 +24,27 @@ namespace ProxyPay.Infra.AppServices
         public AbacatePayAppService(IOptions<AbacatePaySetting> settings)
         {
             _settings = settings.Value;
-            _httpClient = new HttpClient(new HttpClientHandler
+        }
+
+        private HttpClient CreateClient()
+        {
+            var client = new HttpClient(new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
             });
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _settings.ApiKey);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _settings.ApiKey);
+            return client;
         }
 
         public async Task<AbacatePayResponse<BillingInfo>> CreateBillingAsync(BillingCreateRequest request)
         {
+            using var client = CreateClient();
             var content = new StringContent(
                 JsonConvert.SerializeObject(request, _jsonSettings),
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await _httpClient.PostAsync($"{_settings.ApiUrl}/v1/billing/create", content);
+            var response = await client.PostAsync($"{_settings.ApiUrl}/v1/billing/create", content);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
@@ -48,12 +53,13 @@ namespace ProxyPay.Infra.AppServices
 
         public async Task<AbacatePayResponse<PixQrCodeInfo>> CreatePixQrCodeAsync(PixQrCodeCreateRequest request)
         {
+            using var client = CreateClient();
             var content = new StringContent(
                 JsonConvert.SerializeObject(request, _jsonSettings),
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await _httpClient.PostAsync($"{_settings.ApiUrl}/v1/pixQrCode/create", content);
+            var response = await client.PostAsync($"{_settings.ApiUrl}/v1/pixQrCode/create", content);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
@@ -62,7 +68,8 @@ namespace ProxyPay.Infra.AppServices
 
         public async Task<AbacatePayResponse<PixQrCodeStatusInfo>> CheckStatusAsync(string id)
         {
-            var response = await _httpClient.GetAsync($"{_settings.ApiUrl}/v1/pixQrCode/check?id={id}");
+            using var client = CreateClient();
+            var response = await client.GetAsync($"{_settings.ApiUrl}/v1/pixQrCode/check?id={id}");
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();
@@ -71,8 +78,9 @@ namespace ProxyPay.Infra.AppServices
 
         public async Task<AbacatePayResponse<PixQrCodeInfo>> SimulatePaymentAsync(string id)
         {
+            using var client = CreateClient();
             var content = new StringContent("{}", Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync($"{_settings.ApiUrl}/v1/pixQrCode/simulate-payment?id={id}", content);
+            var response = await client.PostAsync($"{_settings.ApiUrl}/v1/pixQrCode/simulate-payment?id={id}", content);
             response.EnsureSuccessStatusCode();
 
             var json = await response.Content.ReadAsStringAsync();

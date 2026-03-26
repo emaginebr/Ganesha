@@ -10,7 +10,6 @@ namespace ProxyPay.Domain.Models
         public long UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string AbacatePayApiKey { get; set; }
         public BillingStrategyEnum BillingStrategy { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -36,12 +35,6 @@ namespace ProxyPay.Domain.Models
         public void UpdateEmail(string email)
         {
             Email = email;
-            MarkUpdated();
-        }
-
-        public void UpdateAbacatePayApiKey(string apiKey)
-        {
-            AbacatePayApiKey = apiKey;
             MarkUpdated();
         }
 

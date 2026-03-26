@@ -1,4 +1,5 @@
 using AutoMapper;
+using ProxyPay.DTO;
 using ProxyPay.Domain.Models;
 using ProxyPay.DTO.Invoice;
 using ProxyPay.Infra.Context;
@@ -11,9 +12,11 @@ namespace ProxyPay.Infra.Mappers
         {
             // Entity <-> Model
             CreateMap<Invoice, InvoiceModel>()
-                .ForMember(d => d.Status, opt => opt.MapFrom(s => (InvoiceStatusEnum)s.Status));
+                .ForMember(d => d.Status, opt => opt.MapFrom(s => (InvoiceStatusEnum)s.Status))
+                .ForMember(d => d.PaymentMethod, opt => opt.MapFrom(s => (PaymentMethodEnum)s.PaymentMethod));
             CreateMap<InvoiceModel, Invoice>()
                 .ForMember(d => d.Status, opt => opt.MapFrom(s => (int)s.Status))
+                .ForMember(d => d.PaymentMethod, opt => opt.MapFrom(s => (int)s.PaymentMethod))
                 .ForMember(d => d.InvoiceItems, opt => opt.Ignore())
                 .ForMember(d => d.Customer, opt => opt.Ignore())
                 .ForMember(d => d.Store, opt => opt.Ignore());

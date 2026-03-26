@@ -1,0 +1,35 @@
+meta {
+  name: Create QRCode
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/payment/qrcode
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": "your-store-client-id",
+    "customer": {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "documentId": "12345678901",
+      "cellphone": "11999999999"
+    },
+    "paymentMethod": 1,
+    "notes": "PIX payment",
+    "discount": 0,
+    "dueDate": "2026-04-30T00:00:00",
+    "items": [
+      {
+        "description": "Product A",
+        "quantity": 1,
+        "unitPrice": 100.00,
+        "discount": 0
+      }
+    ]
+  }
+}

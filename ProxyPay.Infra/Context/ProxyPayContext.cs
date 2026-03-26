@@ -53,9 +53,6 @@ public partial class ProxyPayContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(240)
                 .HasColumnName("email");
-            entity.Property(e => e.AbacatePayApiKey)
-                .HasMaxLength(500)
-                .HasColumnName("abacatepay_api_key");
             entity.Property(e => e.BillingStrategy)
                 .HasDefaultValue(1)
                 .HasColumnName("billing_strategy");
@@ -124,12 +121,21 @@ public partial class ProxyPayContext : DbContext
             entity.Property(e => e.Status)
                 .HasDefaultValue(1)
                 .HasColumnName("status");
+            entity.Property(e => e.PaymentMethod)
+                .HasDefaultValue(1)
+                .HasColumnName("payment_method");
             entity.Property(e => e.Discount)
                 .HasDefaultValue(0.0)
                 .HasColumnName("discount");
             entity.Property(e => e.DueDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("due_date");
+            entity.Property(e => e.ExternalCode)
+                .HasMaxLength(240)
+                .HasColumnName("external_code");
+            entity.Property(e => e.ExpiresAt)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("expires_at");
             entity.Property(e => e.PaidAt)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("paid_at");
@@ -189,6 +195,9 @@ public partial class ProxyPayContext : DbContext
             entity.Property(e => e.StoreId).HasColumnName("store_id");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.Frequency).HasColumnName("frequency");
+            entity.Property(e => e.PaymentMethod)
+                .HasDefaultValue(1)
+                .HasColumnName("payment_method");
             entity.Property(e => e.BillingStartDate)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("billing_start_date");

@@ -11,6 +11,12 @@ namespace ProxyPay.DTO.Invoice
         public string ClientId { get; set; }
         [JsonPropertyName("customer")]
         public CustomerInsertInfo Customer { get; set; }
+        [JsonPropertyName("paymentMethod")]
+        public PaymentMethodEnum PaymentMethod { get; set; }
+        [JsonPropertyName("completionUrl")]
+        public string CompletionUrl { get; set; }
+        [JsonPropertyName("returnUrl")]
+        public string ReturnUrl { get; set; }
         [JsonPropertyName("notes")]
         public string Notes { get; set; }
         [JsonPropertyName("discount")]

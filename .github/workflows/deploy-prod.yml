@@ -54,6 +54,8 @@ jobs:
             EMAGINE_JWT_SECRET=${{ secrets.EMAGINE_JWT_SECRET }}
             MONEXUP_CONNECTION_STRING=${{ secrets.MONEXUP_CONNECTION_STRING }}
             MONEXUP_JWT_SECRET=${{ secrets.MONEXUP_JWT_SECRET }}
+            ABACATEPAY_API_KEY=${{ secrets.ABACATEPAY_API_KEY }}
+            ABACATEPAY_WEBHOOK_SECRET=${{ secrets.ABACATEPAY_WEBHOOK_SECRET }}
             ENVEOF
 
             sed -i 's/^[[:space:]]*//' .env.prod

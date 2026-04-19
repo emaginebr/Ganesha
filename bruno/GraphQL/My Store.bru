@@ -11,7 +11,9 @@ post {
 }
 
 headers {
-  X-Tenant-Id: emagine
+  X-Tenant-Id: fortuno
+  ~X-Tenant-Id: emagine
+  ~X-Tenant-Id: monexup
 }
 
 auth:bearer {
@@ -22,6 +24,7 @@ body:graphql {
   {
     myStore {
       storeId
+      userId
       clientId
       name
       email

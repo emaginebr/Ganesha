@@ -5,15 +5,11 @@ meta {
 }
 
 post {
-  url: https://api.abacatepay.com/v1/pixQrCode/simulate-payment?id=pix_char_CJ3wyb1QJwy3rRB5kFNYYNdj
+  url: {{baseUrl}}/payment/simulate-payment/1
   body: none
-  auth: bearer
+  auth: none
 }
 
-params:query {
-  id: pix_char_CJ3wyb1QJwy3rRB5kFNYYNdj
-}
-
-auth:bearer {
-  token: abc_dev_Ggm5xKQhnNyfEtMg2K466j4D
+headers {
+  X-Tenant-Id: emagine
 }

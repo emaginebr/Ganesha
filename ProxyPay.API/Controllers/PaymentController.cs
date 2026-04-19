@@ -1,4 +1,5 @@
 using ProxyPay.Domain.Interfaces;
+using ProxyPay.DTO.AbacatePay;
 using ProxyPay.DTO.Billing;
 using ProxyPay.DTO.Invoice;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +108,20 @@ namespace ProxyPay.API.Controllers
             try
             {
                 var result = await _invoiceService.CheckQRCodeStatusAsync(invoiceId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("simulate-payment/{invoiceId}")]
+        public async Task<ActionResult<AbacatePayResponse<PixQrCodeInfo>>> SimulatePayment(long invoiceId)
+        {
+            try
+            {
+                var result = await _invoiceService.SimulatePaymentAsync(invoiceId);
                 return Ok(result);
             }
             catch (Exception ex)

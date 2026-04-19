@@ -271,6 +271,27 @@ namespace ProxyPay.Domain.Services
             return BuildStatusResponse(invoice);
         }
 
+        public async Task<AbacatePayResponse<PixQrCodeInfo>> SimulatePaymentAsync(long invoiceId)
+        {
+            _logger.LogInformation("SimulatePayment: invoice {InvoiceId}", invoiceId);
+
+            var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+            if (invoice == null)
+                throw new Exception("Invoice not found");
+
+            if (string.IsNullOrWhiteSpace(invoice.ExternalCode))
+                throw new Exception("Invoice does not have an associated QR Code");
+
+            _logger.LogInformation("SimulatePayment: calling AbacatePay for external code {ExternalCode}", invoice.ExternalCode);
+
+            var response = await _abacatePayAppService.SimulatePaymentAsync(invoice.ExternalCode);
+
+            if (response?.Data == null)
+                throw new Exception("Failed to simulate payment: no response from payment provider");
+
+            return response;
+        }
+
         public async Task<InvoiceModel> MarkAsPaidAsync(long invoiceId, DateTime? paidAt = null)
         {
             _logger.LogInformation("MarkAsPaid: invoice {InvoiceId}, paidAt {PaidAt}", invoiceId, paidAt);

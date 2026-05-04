@@ -5,10 +5,12 @@ meta {
 }
 
 get {
-  url: {{baseUrl}}/payment/qrcode/status/1
+  url: {{baseUrl}}/payment/qrcode/status/8
+  body: none
   auth: none
 }
 
 headers {
-  X-Tenant-Id: emagine
+  X-Tenant-Id: fortuno
+  ~X-Tenant-Id: emagine
 }

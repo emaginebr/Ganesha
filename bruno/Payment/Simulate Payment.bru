@@ -5,11 +5,16 @@ meta {
 }
 
 post {
-  url: {{baseUrl}}/payment/simulate-payment/1
+  url: {{baseUrl}}/payment/simulate-payment/{{invoiceId}}
   body: none
   auth: none
 }
 
 headers {
-  X-Tenant-Id: emagine
+  X-Tenant-Id: fortuno
+  ~X-Tenant-Id: emagine
+}
+
+vars:pre-request {
+  invoiceId: 39
 }

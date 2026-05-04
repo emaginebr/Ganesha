@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProxyPay.Domain\ProxyPay.Domain.csproj" />
+    <ProjectReference Include="..\ProxyPay.DTO\ProxyPay.DTO.csproj" />
     <ProjectReference Include="..\ProxyPay.Infra\ProxyPay.Infra.csproj" />
   </ItemGroup>
 

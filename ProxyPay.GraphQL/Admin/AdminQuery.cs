@@ -3,6 +3,7 @@ using HotChocolate;
 using HotChocolate.Authorization;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using ProxyPay.DTO.GraphQL;
 using ProxyPay.Infra.Context;
 using Microsoft.AspNetCore.Http;
 using NAuth.ACL.Interfaces;
@@ -115,12 +116,4 @@ public class AdminQuery
         var storeId = GetUserStoreId(context, httpContextAccessor, userClient);
         return context.Billings.Where(b => b.StoreId == storeId);
     }
-}
-
-public class BalanceSummary
-{
-    public double Balance { get; set; }
-    public double TotalCredits { get; set; }
-    public double TotalDebits { get; set; }
-    public int TransactionCount { get; set; }
 }

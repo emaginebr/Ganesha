@@ -10,13 +10,17 @@ post {
   auth: bearer
 }
 
+headers {
+  X-Tenant-Id: fortuno
+}
+
 auth:bearer {
   token: {{token}}
 }
 
 body:graphql {
   {
-    myInvoiceByNumber(invoiceNumber: "INV-0001") {
+    myInvoiceByNumber(invoiceNumber: "INV-0001-000012") {
       invoiceId
       invoiceNumber
       status
@@ -27,7 +31,8 @@ body:graphql {
       customer {
         customerId
         name
-        email
+        email,
+        documentId
       }
       invoiceItems {
         invoiceItemId
